@@ -1,0 +1,49 @@
+name: dns-changer
+version: '0.1.0'  # Replace with your application's version
+summary: A simple DNS changer.  # Replace with a short description
+description: |
+  This application allows you to easily change your DNS servers. # A longer description
+grade: stable  # Or 'devel' if it's not ready for release
+confinement: classic # Use 'classic' if absolutely necessary, but 'strict' is preferred
+
+base: core22 # Use an appropriate base. core22 is generally a good choice.
+
+apps:
+  dns-changer:
+    command: bin/dns-changer
+    plugs: [network, network-bind] # Essential plugs for network access
+    # Consider adding: desktop, desktop-legacy, x11, wayland (if it's a GUI app)
+
+parts:
+  my-app:
+    plugin: dump
+    source: . # Copies everything from the current directory (bin, lib, share)
+    # organize:
+    #   'lib/*': 'usr/lib/$SNAPCRAFT_ARCH_TRIPLET/' #This is where you put libraries, if the program expect them in there.
+    stage-packages:
+        - libbrotlicommon1
+        - libbrotlidec1
+        - libbz2-1.0
+        - libcap2
+        - libdbus-1-3
+        - libglib2.0-0
+        - libgraphite2-3
+        - libgthread-2.0-0
+        - libicu73
+        - liblzma5
+        - libpcre2-8-0
+        - libpng16-16
+        - libqt6core6
+        - libqt6dbus6
+        - libqt6gui6
+        - libqt6widgets6
+        - libsystemd0
+        - libxau6
+        - libxext6
+        - libxkbcommon0
+        - libxml2-2
+        - libzstd1
+    # prime:
+    #     - -lib/*.so.*
+    # build-environment:
+    #  - PATH: /snap/bin:$PATH # Sometimes needed if snapcraft can't find executables
